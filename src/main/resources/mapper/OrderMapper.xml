@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xz.demo.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.xz.demo.model.pojo.Order">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="order_name" jdbcType="VARCHAR" property="orderName" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="modify_date" jdbcType="VARCHAR" property="modifyDate" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xz.demo.model.pojo.Order">
+    <result column="order_detail" jdbcType="LONGVARCHAR" property="orderDetail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_name, user_id, create_date, modify_date, money
+  </sql>
+  <sql id="Blob_Column_List">
+    order_detail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xz.demo.model.pojo.Order">
+    insert into order (id, order_name, user_id, 
+      create_date, modify_date, money, 
+      order_detail)
+    values (#{id,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      NOW(), NOW(), #{money,jdbcType=DECIMAL},
+      #{orderDetail,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xz.demo.model.pojo.Order">
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderName != null">
+        order_name,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="orderDetail != null">
+        order_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null">
+        #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        NOW(),
+      </if>
+      <if test="modifyDate != null">
+        NOW(),
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="orderDetail != null">
+        #{orderDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xz.demo.model.pojo.Order">
+    update order
+    <set>
+      <if test="orderName != null">
+        order_name = #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = NOW(),
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="orderDetail != null">
+        order_detail = #{orderDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xz.demo.model.pojo.Order">
+    update order
+    set order_name = #{orderName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      modify_date = NOW(),
+      money = #{money,jdbcType=DECIMAL},
+      order_detail = #{orderDetail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xz.demo.model.pojo.Order">
+    update order
+    set order_name = #{orderName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      modify_date = NOW(),
+      money = #{money,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

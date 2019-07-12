@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xz.demo.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.xz.demo.model.pojo.Admin">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="portrait" jdbcType="VARCHAR" property="portrait" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="organization_id" jdbcType="INTEGER" property="organizationId" />
+    <result column="city_id" jdbcType="VARCHAR" property="cityId" />
+    <result column="province_id" jdbcType="VARCHAR" property="provinceId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+  </resultMap>
+
+  <sql id="match">
+    <where>
+      <if test="id!=null">
+        and T.id=#{id}
+      </if>
+      <if test="username!=null">
+        and T.username=#{username}
+      </if>
+      <if test="password!=null">
+        and T.password=#{password}
+      </if>
+      <if test="realName!=null">
+        and T.real_name like concat('%',#{realName},'%')
+      </if>
+      <if test="phone!=null">
+        and T.phone=#{phone}
+      </if>
+      <if test="email!=null">
+        and T.email=#{email}
+      </if>
+      <if test="portrait!=null">
+        and T.portrait=#{portrait}
+      </if>
+      <if test="createTime!=null">
+        and T.create_time=#{createTime}
+      </if>
+
+      <if test="cityId!=null">
+        and T.city_id=#{cityId}
+      </if>
+      <if test="provinceId!=null">
+        and T.province_id=#{provinceId}
+      </if>
+      <if test="status!=null">
+        and T.status=#{status}
+      </if>
+      <if test="type!=null">
+        and T.type=#{type}
+      </if>
+    </where>
+
+  </sql>
+
+  <sql id="Base_Column_List">
+    id, username, password, real_name, phone, email, portrait, create_time, organization_id, 
+    city_id, province_id, status, type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+
+
+  <select id="selectOne" parameterType="com.xz.demo.model.pojo.Admin" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from admin T
+    <include refid="match"/>
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from admin
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xz.demo.model.pojo.Admin">
+    insert into admin (id, username, password, 
+      real_name, phone, email, 
+      portrait, create_time, organization_id, 
+      city_id, province_id, status, 
+      type)
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{portrait,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{organizationId,jdbcType=INTEGER}, 
+      #{cityId,jdbcType=VARCHAR}, #{provinceId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xz.demo.model.pojo.Admin">
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="portrait != null">
+        portrait,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="organizationId != null">
+        organization_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="provinceId != null">
+        province_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="portrait != null">
+        #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null">
+        #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xz.demo.model.pojo.Admin">
+    update admin
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="portrait != null">
+        portrait = #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        organization_id = #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null">
+        province_id = #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xz.demo.model.pojo.Admin">
+    update admin
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      portrait = #{portrait,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      organization_id = #{organizationId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

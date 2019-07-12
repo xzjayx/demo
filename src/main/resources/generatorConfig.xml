@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- ojdbc6.jar已经直接放到项目中,无需指定了,同时mysql驱动包也一样,这里同样无需指定 -->
+    <!-- <classPathEntry location="ojdbc6.jar" /> -->
+    <context id="context" targetRuntime="MyBatis3">
+        <!-- 指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
+        <property name="javaFileEncoding" value="UTF-8" />
+
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+
+        <!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
+                         connectionURL="url"
+                         userId="数据库账号" password="数据库密码">
+             &lt;!&ndash; 针对oracle数据库 &ndash;&gt;
+             <property name="remarksReporting" value="true"></property>
+         </jdbcConnection>-->
+
+
+
+
+        <!-- mysql配置 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/demo?characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true" userId="root" password="root">
+            <property name="useInformationSchema" value="true"></property>
+        </jdbcConnection>
+
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!-- 下面几个的 targetProject都要改 -->
+        <javaModelGenerator targetPackage="com.xz.demo.model.pojo"
+                            targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.xz.demo.dao" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+
+        <!-- 重新生成 要改这里2 -->
+        <table tableName="Admin" domainObjectName="Admin"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" enableUpdateByExample="false">
+            <!-- 驼峰命名     数据库字段要加_(下划线) -->
+            <property name="useActualColumnNames" value="false" />
+            <!-- <property name="mapUnderscoreToCamelCase" value="true" /> -->
+            <!--不加下划线就改名字  -->
+            <!-- <columnOverride column="username" property="userName"></columnOverride>-->
+            <!-- number类型会转成bigcimal类型      自定义转成integer -->
+            <!--<columnOverride column="delflag" javaType="java.lang.Integer"></columnOverride> -->
+        </table>
+
+
+    </context>
+</generatorConfiguration>
+
