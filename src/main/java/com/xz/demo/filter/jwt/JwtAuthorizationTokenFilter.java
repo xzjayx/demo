@@ -24,6 +24,10 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * jwt的过期类
+ * @author xiezhi
+ * */
 @Slf4j
 @Component
 public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
@@ -63,11 +67,17 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                 request.getRequestDispatcher("/401").forward(request, response);
                 return;
             }
+            //判断该token有没有过期
+            if(System.currentTimeMillis() > claims.getExpiration().getTime()){
+                //说明时间过期，重置redis缓存
+                request.getRequestDispatcher("/402").forward(request,response);
+                return;
+            }
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 //这里我们要重新去数据库中查询用户的权限
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
                 //判断token是否有效和失效
-              /*  if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+               /* if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(
