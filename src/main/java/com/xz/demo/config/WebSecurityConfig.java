@@ -77,6 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-ui.html", "/webjars/**", "/image/**", "/v2/api-docs/**",
                         "/swagger-resources/**", "/configuration/**").permitAll()
                 .antMatchers("/login/**").permitAll()
+                .antMatchers("/send/**").permitAll()
                 //对于其他请求都要验证
                 .anyRequest().authenticated();
         // 静止缓存

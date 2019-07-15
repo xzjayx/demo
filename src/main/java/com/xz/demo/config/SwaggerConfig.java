@@ -62,6 +62,25 @@ public class SwaggerConfig {
     }
 
     @Bean
+    public Docket MqApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("消息模块")
+                .apiInfo(apiInfo())
+                .select()
+                .paths(MqPaths())
+                .build();
+    }
+
+    private Predicate<String> MqPaths() {
+        return or(
+                regex("/send/.*")
+        );
+    }
+
+
+
+
+    @Bean
     public Docket orderApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("订单模块")

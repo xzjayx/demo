@@ -22,6 +22,15 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    #  Message sent to the switch confirmation mechanism,Whether to confirm the callback
+    publisher-confirms: true
+    publisher-returns: true
   servlet:
     multipart:
       max-request-size: 500MB
@@ -56,10 +65,15 @@ mybatis-plus:
 jwt:
   header: Authorization
   secret: demo
-  expiration: 604800
+  expiration: 720000
   tokenHead: "Bearer "
 snowflake:
   #Between the same service can be the same when clustering , Different services must be different
   workerId: 1
   #Different data centers are different
   datacenterId: 1
+
+#logging:
+  #file: /rabbit/rabbitmq-service.log
+  #level:
+    #com.rabbitmq: debug
