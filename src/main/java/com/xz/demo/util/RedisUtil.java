@@ -423,7 +423,7 @@ public class RedisUtil {
     }
 
     /**
-     * 添加缓存并设置过期时间
+     * 添加缓存并设置过期时间 秒
      * @param key 键
      * @param value 值
      * @param time 时间(秒) time要大于0 如果time小于等于0 将设置无限期
@@ -442,6 +442,34 @@ public class RedisUtil {
             return false;
         }
     }
+
+
+    /**
+     * 添加缓存并设置过期时间
+     * @param key 键
+     * @param value 值
+     * @param timeUnit 时间格式
+     * @return true成功 false 失败
+     */
+    public boolean set(String key,Object value,long time,TimeUnit timeUnit){
+        try {
+            if(time>0){
+                redisTemplate.opsForValue().set(key, value, time, timeUnit);
+            }else{
+                set(key, value);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
+
+
 
     /**
      * 递增
@@ -533,6 +561,7 @@ public class RedisUtil {
     }
 
     /**
+     * 不知道为啥方法失效，失效原因未明
      * 指定缓存失效时间时间自选
      * @param key 键
      * @param timeUnit 时间自选

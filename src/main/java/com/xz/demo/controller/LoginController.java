@@ -43,8 +43,11 @@ public class LoginController {
         if(Objects.nonNull(s)){
             // 通过用户关联角色权限等，之后再完善
             String token = JwtUtil.createJWT(String.valueOf(s.getId()), admin.getUsername(), null, Constant.Redis.OSP_TEACHER_TIMEOUT*1000);
-            boolean expire = redisUtil.expire("token" + admin.getUsername(), expiration, TimeUnit.MILLISECONDS);
-            System.out.println(expire);
+
+            //redisUtil.expire("demo",expiration,TimeUnit.MILLISECONDS); 未知原因方法失效
+
+
+            redisUtil.set(admin.getUsername(),token,expiration,TimeUnit.MILLISECONDS);
             return new ResponseJson(200,"响应成功",token);
         }
         return new ResponseJson(false,"账号或者密码不对");

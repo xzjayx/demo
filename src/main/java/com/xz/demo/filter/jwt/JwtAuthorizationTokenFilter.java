@@ -1,6 +1,8 @@
 package com.xz.demo.filter.jwt;
 
+import com.xz.demo.config.Constant;
 import com.xz.demo.util.JwtUtil;
+import com.xz.demo.util.RedisUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
- * jwt的过期类
+ * jwt的过滤类
  * @author xiezhi
  * */
 @Slf4j
@@ -37,8 +40,9 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
     @Qualifier("userDetailsServiceImpl")
     @Resource
     private UserDetailsService userDetailsService;
+
     @Autowired
-    private RedisTemplate<Object, Object> redisTemplate;
+    private RedisUtil redisUtil;
 
     @Value("${jwt.header}")
     private String head;
@@ -51,41 +55,27 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+
         String token = request.getHeader(this.head);
         if (token != null && token.startsWith(tokenHead)) {
             final String authToken = token.substring(tokenHead.length());
             Claims claims = JwtUtil.parseJWT(authToken);
             if(Objects.isNull(claims)){
-                request.getRequestDispatcher("/403").forward(request, response);
+                request.getRequestDispatcher(Constant.EXCEPTION_URL.concat("401")).forward(request, response);
                 return;
             }
             String username = claims.getSubject();
             log.info("checking authentication :{}", username);
-            //判断redis有没有这个token
-            boolean has = authToken.equals(redisTemplate.opsForValue().get("token" + username));
-            if (!has) {
-                request.getRequestDispatcher("/401").forward(request, response);
-                return;
-            }
-            //判断该token有没有过期
-            if(System.currentTimeMillis() > claims.getExpiration().getTime()){
-                //说明时间过期，重置redis缓存
-                request.getRequestDispatcher("/402").forward(request,response);
+
+            if(Objects.isNull(redisUtil.get(username))){
+               //redis 取值不到说明 token 失效，需要重新获取
+                request.getRequestDispatcher(Constant.EXCEPTION_URL.concat("403")).forward(request, response);
                 return;
             }
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                //这里我们要重新去数据库中查询用户的权限
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                //判断token是否有效和失效
-               /* if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(
-                            request));
-                    log.info("authenticated user:{}, setting security context", username);
-                    //这个来授权建立上下文对象
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }*/
+                //可有自己进行每个URL的粒度控制，也可以用spring security 进行上下文控制
+                request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
+                return;
             }
         }
 

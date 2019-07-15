@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 401权限异常的请求转发
+ * 401权限异常的请求转发  token错误异常
  * @author xz
  * @date 2019/6/27 11:58
  */

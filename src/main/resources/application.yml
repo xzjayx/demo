@@ -20,8 +20,16 @@ spring:
     filters: stat,wall,slf4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   redis:
+    database: 1
     host: 127.0.0.1
     port: 6379
+    timeout: 5000
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
   rabbitmq:
     host: 127.0.0.1
     port: 5672
@@ -65,7 +73,7 @@ mybatis-plus:
 jwt:
   header: Authorization
   secret: demo
-  expiration: 720000
+  expiration: 7200000
   tokenHead: "Bearer "
 snowflake:
   #Between the same service can be the same when clustering , Different services must be different

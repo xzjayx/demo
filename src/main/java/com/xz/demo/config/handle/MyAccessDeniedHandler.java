@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 没有权限
+ * 403token 失效转发
  *
  * @author xz
  * @date 2019/6/27 11:56
