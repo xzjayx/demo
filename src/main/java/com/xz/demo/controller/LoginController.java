@@ -26,10 +26,18 @@ import java.util.concurrent.TimeUnit;
 @Api(value = "/login",description = "登录模块")
 public class LoginController {
 
+
+    private final AdminService adminService;
+
+    private final RedisUtil redisUtil;
+
     @Autowired
-    private AdminService adminService;
-    @Autowired
-    private RedisUtil redisUtil;
+    public LoginController(AdminService adminService, RedisUtil redisUtil){
+        this.adminService = adminService;
+        this.redisUtil = redisUtil;
+    }
+
+
 
     @Value("${jwt.expiration}")
     private Long expiration;
