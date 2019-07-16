@@ -41,7 +41,6 @@ public class LoginController {
     }
 
 
-
     @Value("${jwt.expiration}")
     private Long expiration;
 
