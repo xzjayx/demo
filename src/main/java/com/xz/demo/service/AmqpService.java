@@ -14,7 +14,8 @@ public class AmqpService{
     private AmqpTemplate amqpTemplate;
 
 
-    public void convertAndSend(String message) {
+    public void convertAndSend() {
+        String message = "为了测试简单写死";
         amqpTemplate.convertAndSend("com.xz.demo.rabbit", message);
     }
 }

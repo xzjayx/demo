@@ -19,10 +19,11 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 @Configuration
 @EnableRabbit
 public class RabbitListenerConfig implements RabbitListenerConfigurer{
-    @Autowired
-    private ConnectionFactory connectionFactory;
+    private final ConnectionFactory connectionFactory;
 
-    public RabbitListenerConfig() {
+    @Autowired
+    public RabbitListenerConfig(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
     }
 
     @Bean

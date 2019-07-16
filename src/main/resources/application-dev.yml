@@ -1,5 +1,4 @@
 logging:
-  file: springdemo.log
+  file: ./logs/springdemo.log
   level:
     root: info
-  path: D:\logs

@@ -1,5 +1,6 @@
 package com.xz.demo.controller;
 
+import com.xz.demo.config.ResponseJson;
 import com.xz.demo.service.AmqpService;
 import com.xz.demo.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,10 @@ public class SendController {
     }
 
     @GetMapping("/send")
-    public void sendMsg(){
-        String message = "为了测试简单写死";
-        amqpService.convertAndSend(message);
+    public ResponseJson sendMsg(){
+        amqpService.convertAndSend();
         System.out.println(redisUtil.hasKey("demo"));
+        return new ResponseJson(true,"发送消息成功");
     }
 
 }
