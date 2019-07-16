@@ -34,14 +34,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
+    private final JwtAuthorizationTokenFilter authenticationTokenFilter;
+
+
     @Autowired
-    public WebSecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
+    public WebSecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService,
+                             JwtAuthorizationTokenFilter authenticationTokenFilter) {
         this.userDetailsService = userDetailsService;
+        this.authenticationTokenFilter = authenticationTokenFilter;
     }
 
 
-    @Autowired
-    private JwtAuthorizationTokenFilter authenticationTokenFilter;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

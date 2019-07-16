@@ -1,5 +1,6 @@
-package com.xz.demo.config;
+package com.xz.demo.config.general;
 
+import com.xz.demo.config.ResponseJson;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

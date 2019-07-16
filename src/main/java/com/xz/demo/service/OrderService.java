@@ -1,6 +1,6 @@
 package com.xz.demo.service;
 
-import com.xz.demo.config.SequenceId;
+import com.xz.demo.config.general.SequenceId;
 import com.xz.demo.dao.OrderMapper;
 import com.xz.demo.model.pojo.Order;
 import org.springframework.beans.factory.annotation.Autowired;

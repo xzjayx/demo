@@ -37,12 +37,9 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
 
 
-    @Qualifier("userDetailsServiceImpl")
-    @Resource
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    private RedisUtil redisUtil;
+    private final RedisUtil redisUtil;
 
     @Value("${jwt.header}")
     private String head;
@@ -50,7 +47,11 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
-
+    @Autowired
+    public JwtAuthorizationTokenFilter(RedisUtil redisUtil, @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
+        this.redisUtil = redisUtil;
+        this.userDetailsService = userDetailsService;
+    }
 
 
     @Override

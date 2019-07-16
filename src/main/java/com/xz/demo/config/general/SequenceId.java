@@ -1,4 +1,4 @@
-package com.xz.demo.config;
+package com.xz.demo.config.general;
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;

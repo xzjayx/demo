@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-
+/**
+ * 登录的模块
+ * @author xz
+ * */
 @RestController
 @RequestMapping("/login")
 @Api(value = "/login",description = "登录模块")

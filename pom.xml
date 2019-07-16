@@ -44,11 +44,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- aop的相关配置依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
 
