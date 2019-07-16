@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "/order",description = "订单模块")
 public class OrderController {
 
+    private final OrderService orderService;
+
     @Autowired
-    private OrderService orderService;
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @PostMapping("/save")
     @ApiOperation(value = "保存订单", notes = "订单对象", response=Order.class)

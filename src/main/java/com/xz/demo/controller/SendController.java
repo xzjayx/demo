@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/send")
 public class SendController {
 
-    @Autowired
-    private AmqpService amqpService;
+    private final AmqpService amqpService;
+
+    private final RedisUtil redisUtil;
 
     @Autowired
-    private RedisUtil redisUtil;
+    public SendController(AmqpService amqpService, RedisUtil redisUtil) {
+        this.amqpService = amqpService;
+        this.redisUtil = redisUtil;
+    }
 
     @GetMapping("/send")
     public void sendMsg(){
