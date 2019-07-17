@@ -1,5 +1,7 @@
 package com.xz.demo.config.rabbitmq;
 
+
+
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListenerConfigurer;
@@ -12,14 +14,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 
+
 /**
  * rabbit监听器的配置类
- * @author xz
- * */
+ * @author xiezhi
+ */
 @Configuration
 @EnableRabbit
-public class RabbitListenerConfig implements RabbitListenerConfigurer{
-    private final ConnectionFactory connectionFactory;
+public class RabbitListenerConfig implements RabbitListenerConfigurer {
+
+    private  ConnectionFactory connectionFactory;
+
+
+    public RabbitListenerConfig() {
+    }
+
 
     @Autowired
     public RabbitListenerConfig(ConnectionFactory connectionFactory) {
@@ -37,7 +46,7 @@ public class RabbitListenerConfig implements RabbitListenerConfigurer{
     public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(this.connectionFactory);
-        factory.setAcknowledgeMode(AcknowledgeMode.AUTO);
+        factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
         return factory;
     }
 
@@ -45,6 +54,5 @@ public class RabbitListenerConfig implements RabbitListenerConfigurer{
     public void configureRabbitListeners(RabbitListenerEndpointRegistrar rabbitListenerEndpointRegistrar) {
         rabbitListenerEndpointRegistrar.setMessageHandlerMethodFactory(this.handlerMethodFactory());
     }
-
 
 }

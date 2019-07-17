@@ -159,4 +159,20 @@ public class ResponseJson {
             this.msg = msg;
         }
     }
+
+
+    @Override
+    public String toString() {
+        return "ResponseJson{" +
+                "result=" + result +
+                ", data=" + data +
+                ", data2=" + data2 +
+                ", data3=" + data3 +
+                ", data4=" + data4 +
+                ", totalCount=" + totalCount +
+                '}';
+    }
+
+
+
 }
