@@ -65,7 +65,7 @@ public class SwaggerConfig {
     public Docket MqApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("消息模块")
-                //.globalOperationParameters(setHeaderToken())
+                .globalOperationParameters(setHeaderToken())
                 .apiInfo(apiInfo())
                 .select()
                 .paths(MqPaths())
