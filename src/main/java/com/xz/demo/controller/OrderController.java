@@ -9,9 +9,12 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author xiezhi
+ */
 @RestController
 @RequestMapping("/order")
-@Api(value = "/order",description = "订单模块")
+@Api(value = "/order",tags = "订单模块")
 public class OrderController {
 
     private final OrderService orderService;

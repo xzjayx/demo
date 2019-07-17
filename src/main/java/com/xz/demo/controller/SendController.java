@@ -3,6 +3,7 @@ package com.xz.demo.controller;
 import com.xz.demo.config.ResponseJson;
 import com.xz.demo.config.rabbitmq.MsgProducer;
 import com.xz.demo.util.RedisUtil;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/send")
+@Api(value = "/send",tags = "消息发送")
 public class SendController {
 
     private final MsgProducer msgProducer;
@@ -32,8 +34,8 @@ public class SendController {
         for(int i=1;i<=msgNum;i++) {
             msgProducer.sendMsg("---------第------"+i+"次消息");
         }
-       /* msgProducer.sendMsg("哈哈哈哈哈哈哈");
-        System.out.println(redisUtil.hasKey("demo"));*/
+       /* msgProducer.sendMsg("哈哈哈哈哈哈哈");*/
+        System.out.println(redisUtil.hasKey("demo"));
         return new ResponseJson(true,"发送消息成功");
     }
 

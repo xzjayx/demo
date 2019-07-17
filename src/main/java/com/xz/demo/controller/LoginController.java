@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  * */
 @RestController
 @RequestMapping("/login")
-@Api(value = "/login",description = "登录模块")
+@Api(value = "/login",tags = "登录模块")
 public class LoginController {
 
 
