@@ -39,11 +39,6 @@ public class MsgProducer implements RabbitTemplate.ConfirmCallback {
     }
 
 
-
-
-
-
-
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
         log.info(" 回调id:" + correlationData);

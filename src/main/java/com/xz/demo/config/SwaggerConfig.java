@@ -98,4 +98,22 @@ public class SwaggerConfig {
         );
     }
 
+
+    @Bean
+    public Docket taskApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("定时任务模块")
+                .globalOperationParameters(setHeaderToken())
+                .apiInfo(apiInfo())
+                .select()
+                .paths(taskPaths())
+                .build();
+    }
+
+    private Predicate<String> taskPaths() {
+        return or(
+                regex("/task/.*")
+        );
+    }
+
 }

@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author xz
+ */
 @RestControllerAdvice
 public class GlobalException {
 

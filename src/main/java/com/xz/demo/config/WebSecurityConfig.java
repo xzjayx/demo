@@ -24,7 +24,8 @@ import org.springframework.web.cors.CorsUtils;
 
 /**
  * spring Security 配置类
- * */
+ *
+ * @author xz*/
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xz.demo.dao.TaskMapper">
+  <resultMap id="BaseResultMap" type="com.xz.demo.model.pojo.Task">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="task_key" jdbcType="VARCHAR" property="taskKey" />
+    <result column="task_description" jdbcType="VARCHAR" property="taskDescription" />
+    <result column="task_group" jdbcType="VARCHAR" property="taskGroup" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="cron" jdbcType="VARCHAR" property="cron" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="modify_date" jdbcType="VARCHAR" property="modifyDate" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, task_key, task_description, task_group, task_name, cron, create_date, modify_date, 
+    status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from task
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xz.demo.model.pojo.Task">
+    insert into task (id, task_key, task_description, 
+      task_group, task_name, cron, 
+      create_date, modify_date, status
+      )
+    values (#{id,jdbcType=VARCHAR}, #{taskKey,jdbcType=VARCHAR}, #{taskDescription,jdbcType=VARCHAR}, 
+      #{taskGroup,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, #{cron,jdbcType=VARCHAR}, 
+      NOW(), NOW(), #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xz.demo.model.pojo.Task">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="taskKey != null">
+        task_key,
+      </if>
+      <if test="taskDescription != null">
+        task_description,
+      </if>
+      <if test="taskGroup != null">
+        task_group,
+      </if>
+      <if test="taskName != null">
+        task_name,
+      </if>
+      <if test="cron != null">
+        cron,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="taskKey != null">
+        #{taskKey,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDescription != null">
+        #{taskDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="taskGroup != null">
+        #{taskGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="cron != null">
+        #{cron,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xz.demo.model.pojo.Task">
+    update task
+    <set>
+      <if test="taskKey != null">
+        task_key = #{taskKey,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDescription != null">
+        task_description = #{taskDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="taskGroup != null">
+        task_group = #{taskGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="cron != null">
+        cron = #{cron,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xz.demo.model.pojo.Task">
+    update task
+    set task_key = #{taskKey,jdbcType=VARCHAR},
+      task_description = #{taskDescription,jdbcType=VARCHAR},
+      task_group = #{taskGroup,jdbcType=VARCHAR},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      cron = #{cron,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>
