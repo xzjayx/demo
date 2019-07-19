@@ -13,15 +13,70 @@
     <result column="status" jdbcType="VARCHAR" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, task_key, task_description, task_group, task_name, cron, create_date, modify_date, 
-    status
+    id, task_key, task_description, task_group, task_name, cron, create_date, modify_date,status
   </sql>
+
+
+  <sql id="match">
+    <where>
+      <if test="id!=null">
+        and T.id=#{id}
+      </if>
+      <if test="taskKey!=null">
+        and T.task_key=#{taskKey}
+      </if>
+      <if test="taskDescription!=null">
+        and T.task_description=#{taskDescription}
+      </if>
+      <if test="taskGroup!=null">
+        and T.task_group =#{taskGroup}
+      </if>
+      <if test="taskName!=null">
+        and T.task_name=#{taskName}
+      </if>
+      <if test="cron!=null">
+        and T.cron=#{cron}
+      </if>
+      <if test="createDate!=null">
+        and T.create_date=#{createDate}
+      </if>
+      <if test="modifyDate!=null">
+        and T.modify_date=#{modifyDate}
+      </if>
+      <if test="status!=null">
+        and T.status=#{status}
+      </if>
+    </where>
+  </sql>
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from task
     where id = #{id,jdbcType=VARCHAR}
   </select>
+
+
+  <select id="findOneTaskByCondition" parameterType="com.xz.demo.model.pojo.Task" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from task T
+    <include refid="match"/>
+  </select>
+
+
+
+
+
+
+
+
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from task
     where id = #{id,jdbcType=VARCHAR}

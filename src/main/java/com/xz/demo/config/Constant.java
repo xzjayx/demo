@@ -22,7 +22,7 @@ public interface Constant {
 
     interface Redis {
         //admin的登录缓存超时时间
-        int OSP_TEACHER_TIMEOUT = 3600;
+        int OSP_TEACHER_TIMEOUT = 7200;
     }
 
 

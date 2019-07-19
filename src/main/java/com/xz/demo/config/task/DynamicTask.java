@@ -2,6 +2,9 @@ package com.xz.demo.config.task;
 
 import java.util.Date;
 import java.util.concurrent.ScheduledFuture;
+
+import com.xz.demo.service.TaskService;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -21,6 +24,7 @@ public class DynamicTask {
     @Autowired
     private ThreadPoolTaskScheduler threadPoolTaskScheduler;
 
+
     @Bean
     public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
         return new ThreadPoolTaskScheduler();
@@ -28,35 +32,25 @@ public class DynamicTask {
 
 
 
-    public String startCron() {
-        future = threadPoolTaskScheduler.schedule(new MyRunnable(), new CronTrigger("0/5 * * * * *"));
-        System.out.println("DynamicTask.startCron()");
-        return "startCron";
+    public void startCron(Runnable runnable,String cron) {
+        future = threadPoolTaskScheduler.schedule(runnable, new CronTrigger(cron.trim()));
+        System.out.println("启动成功");
     }
 
 
-    public String stopCron() {
+    public void stopCron() {
         if (future != null) {
             future.cancel(true);
         }
-        System.out.println("DynamicTask.stopCron()");
-        return "stopCron";
     }
 
 
-    public String startCron10() {
+    public void reStartCron(Runnable runnable,String cron) {
         stopCron();// 先停止，在开启.
-        future = threadPoolTaskScheduler.schedule(new MyRunnable(), new CronTrigger("*/10 * * * * *"));
-        System.out.println("DynamicTask.startCron10()");
-        return "changeCron10";
+        future = threadPoolTaskScheduler.schedule(runnable, new CronTrigger(cron));
+
     }
 
-    private class MyRunnable implements Runnable {
-        @Override
-        public void run() {
-            System.out.println("DynamicTask.MyRunnable.run()，" + new Date());
-        }
-    }
 
 
 }

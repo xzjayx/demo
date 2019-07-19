@@ -4,6 +4,7 @@ import com.xz.demo.config.Constant;
 import com.xz.demo.util.JwtUtil;
 import com.xz.demo.util.RedisUtil;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -60,7 +61,13 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
         String token = request.getHeader(this.head);
         if (token != null && token.startsWith(tokenHead)) {
             final String authToken = token.substring(tokenHead.length());
-            Claims claims = JwtUtil.parseJWT(authToken);
+            Claims claims = null ;
+            try {
+                  claims = JwtUtil.parseJWT(authToken);
+            }catch(ExpiredJwtException expiredJwtException){
+                request.getRequestDispatcher(Constant.EXCEPTION_URL.concat("403")).forward(request, response);
+                return;
+            }
             if(Objects.isNull(claims)){
                 request.getRequestDispatcher(Constant.EXCEPTION_URL.concat("401")).forward(request, response);
                 return;
