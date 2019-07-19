@@ -6,11 +6,14 @@ import com.xz.demo.model.pojo.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
 /**
  * @author xz
  */
 @Service
 public class TaskService {
+
 
     private final TaskMapper taskMapper;
 
@@ -21,6 +24,7 @@ public class TaskService {
     public TaskService(TaskMapper taskMapper, SequenceId sequenceId) {
         this.taskMapper = taskMapper;
         this.sequenceId = sequenceId;
+
     }
 
 
