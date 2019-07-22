@@ -49,6 +49,18 @@ spring:
     default-property-inclusion: non_null
   application:
     name: demo
+  mail:
+    host: smtp.qq.com
+    username: 578241608@qq.com
+    password: hnmrdczsqkkmbdaj
+    protocol: smtp
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.port: 465
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+    default-encoding: utf-8
+    from: 578241608@qq.com
 server:
   port: 8848
 mybatis-plus:

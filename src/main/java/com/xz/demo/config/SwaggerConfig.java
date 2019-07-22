@@ -116,4 +116,22 @@ public class SwaggerConfig {
         );
     }
 
+
+    @Bean
+    public Docket EmailApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("邮件模块")
+                .globalOperationParameters(setHeaderToken())
+                .apiInfo(apiInfo())
+                .select()
+                .paths(EmailPaths())
+                .build();
+    }
+
+    private Predicate<String> EmailPaths() {
+        return or(
+                regex("/email/.*")
+        );
+    }
+
 }
