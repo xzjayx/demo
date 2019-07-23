@@ -10,13 +10,15 @@ import com.xz.demo.util.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -63,6 +65,25 @@ public class LoginController {
         return new ResponseJson(false,"账号或者密码不对");
     }
 
+
+
+
+
+
+
+    @PostMapping("exportExcel")
+    @ApiOperation(value = "导出excel用户测试", notes = "返回一个excel")
+    public void exportAssetsStockExcel(HttpServletResponse response){
+        //告诉浏览器用什么软件可以打开此文件
+        response.setHeader("content-Type", "application/vnd.ms-excel;charset=utf-8");
+        response.setHeader("Content-Disposition", "attachment;filename=Excel.xls");
+        try (ServletOutputStream s = response.getOutputStream()) {
+            Workbook workbook = adminService.exportExcel();
+            workbook.write(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

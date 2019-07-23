@@ -1,5 +1,6 @@
 package com.xz.demo.config.general;
 
+import cn.hutool.core.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -38,6 +39,7 @@ public class WebLogAspect {
 
     @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret){
+        if(ObjectUtil.isNull(ret)) return;
         // 处理完请求，返回内容
         log.info("RESPONSE : " +ret.toString());
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>");

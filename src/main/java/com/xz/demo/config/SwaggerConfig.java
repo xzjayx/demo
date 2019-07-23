@@ -134,4 +134,22 @@ public class SwaggerConfig {
         );
     }
 
+
+    @Bean
+    public Docket WxApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("微信模块")
+                .globalOperationParameters(setHeaderToken())
+                .apiInfo(apiInfo())
+                .select()
+                .paths(WxPaths())
+                .build();
+    }
+
+    private Predicate<String> WxPaths() {
+        return or(
+                regex("/wx/.*")
+        );
+    }
+
 }

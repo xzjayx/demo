@@ -17,28 +17,18 @@ import java.io.IOException;
 public class CorsFilter implements Filter {
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        HttpServletResponse response = (HttpServletResponse) res;
-
-        HttpServletRequest reqs = (HttpServletRequest) req;
-
-        response.setHeader("Access-Control-Allow-Origin",reqs.getHeader("Origin"));
-        //允许跨域访问的域
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        //允许使用的请求方法
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PATCH, DELETE, PUT,OPTIONS");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "Origin, x-requested-with,Cache-Control,Pragma,Content-Type,Authorization");
-        //是否允许请求带有验证信息
-        response.setHeader("Access-Control-Allow-Credentials","true");
-        chain.doFilter(req, res);
+    public void init(FilterConfig filterConfig) throws ServletException {
     }
 
-
-
     @Override
-    public void init(FilterConfig filterConfig) {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Authorization");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

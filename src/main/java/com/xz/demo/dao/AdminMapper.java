@@ -3,6 +3,8 @@ package com.xz.demo.dao;
 import com.xz.demo.model.pojo.Admin;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface AdminMapper {
 
@@ -19,5 +21,7 @@ public interface AdminMapper {
     int updateByPrimaryKey(Admin record);
 
     Admin selectOne(Admin record);
+
+    List<Admin> findAll(Admin record);
 
 }
