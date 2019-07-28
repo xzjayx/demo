@@ -23,8 +23,12 @@ public class RedisUtil {
 
 
     private static final long LOCK_EXPIRE = 10000;
-    @Autowired
-    private  RedisTemplate<Object, Object> redisTemplate;
+
+    private final RedisTemplate<Object, Object> redisTemplate;
+
+    public RedisUtil(RedisTemplate<Object, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     /*-----------------------------LIST类型相关操作---------------------------------------*/
 

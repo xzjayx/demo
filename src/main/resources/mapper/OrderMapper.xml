@@ -26,10 +26,14 @@
     from order
     where id = #{id,jdbcType=VARCHAR}
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from order
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+
+
   <insert id="insert" parameterType="com.xz.demo.model.pojo.Order">
     insert into order (id, order_name, user_id, 
       create_date, modify_date, money, 
@@ -38,6 +42,9 @@
       NOW(), NOW(), #{money,jdbcType=DECIMAL},
       #{orderDetail,jdbcType=LONGVARCHAR})
   </insert>
+
+
+
   <insert id="insertSelective" parameterType="com.xz.demo.model.pojo.Order">
     insert into order
     <trim prefix="(" suffix=")" suffixOverrides=",">
