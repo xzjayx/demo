@@ -37,9 +37,6 @@ import java.util.Optional;
 public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
 
-
-    private final UserDetailsService userDetailsService;
-
     private final RedisUtil redisUtil;
 
     @Value("${jwt.header}")
@@ -51,7 +48,6 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
     @Autowired
     public JwtAuthorizationTokenFilter(RedisUtil redisUtil, @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.redisUtil = redisUtil;
-        this.userDetailsService = userDetailsService;
     }
 
 
