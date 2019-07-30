@@ -35,6 +35,15 @@ public class Admin {
 
     private Integer type;
 
+    public Admin(String username, Integer status) {
+        this.username = username;
+        this.status = status;
+    }
+
+
+    public Admin() {
+    }
+
     public String getId() {
         return id;
     }
