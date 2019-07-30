@@ -28,7 +28,7 @@ public class RedisConfig {
         // 2.关联 redisConnectionFactory
         template.setConnectionFactory(redisConnectionFactory);
         // 3.创建 序列化类
-        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper om = new ObjectMapper();
         // 4.设置可见度
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
