@@ -69,15 +69,14 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
                 return;
             }
             String username = claims.getSubject();
-            log.info("checking authentication :{}", username);
-
-            if(Objects.isNull(redisUtil.get(username))){
+            if(Objects.isNull(username)){
                //redis 取值不到说明 token 失效，需要重新获取
                 request.getRequestDispatcher(Constant.EXCEPTION_URL.concat("403")).forward(request, response);
                 return;
             }
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                //可有自己进行每个URL的粒度控制，也可以用spring security 进行上下文控制
+            log.info("checking authentication :{}", username);
+            if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                //可有自己进行每个URL的粒度控制，也可以用spring security 进行上下文控制 ,根据url实行角色的过滤
                 request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
                 return;
             }
