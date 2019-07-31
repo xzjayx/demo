@@ -2,6 +2,8 @@ package com.xz.demo.model.pojo;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 
+import java.util.Objects;
+
 public class Admin {
     private String id;
 
@@ -155,4 +157,6 @@ public class Admin {
                 ", status=" + status +
                 '}';
     }
+
+
 }

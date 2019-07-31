@@ -2,12 +2,16 @@ package com.xz.demo.util;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.xz.demo.model.pojo.Admin;
+import org.apache.ibatis.logging.stdout.StdOutImpl;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  *
+ *https://blog.csdn.net/chenhao_c_h/article/details/80691284
  *
  * 首先对stream的操作可以分为两类，中间操作(intermediate operations)和结束操作(terminal operations):
  *
@@ -30,17 +34,31 @@ public class StreamDemo {
                 new Admin("王五", 20),
                 new Admin("赵六", 223),
                 new Admin("周七", 24),
-                new Admin("王八", 29)
+                new Admin("张三", 18)
         );
 
         //stream的相关测试demo
        // admins.forEach(System.out::println);
 
         //sorted() 使用该方法排序数据 如果想到得到它 .默认是升序，但是如果逻辑要使用降序 需要reversed() 方法
-        admins.stream().sorted(Comparator.comparing(Admin::getStatus).reversed()).forEach(x -> System.out.println(x.toString()));
+        //admins.stream().sorted(Comparator.comparing(Admin::getStatus).reversed()).forEach(x -> System.out.println(x.toString()));
 
+        //distinct() 去重 需要重写 to string() he hashCode 方法
+        //admins.stream().distinct().forEach(x -> System.out.println(x.toString()));
 
+        admins.stream().filter(x -> x.getStatus()>=20).forEach(x -> System.out.println(x.toString()));
 
+        // limit()：使用该方法截断，输出前面的数
+        System.out.println("------limit()-----");
+        admins.stream().limit(3).forEach(x -> System.out.println(x.toString()));
+
+        //skip()：与limit互斥，使用该方法跳过元素
+        System.out.println("------skip()-----");
+        admins.stream().skip(3).forEach(x -> System.out.println(x.toString()));
+
+        //map()：接收一个方法作为参数，该函数会被应用到每个元素上，并将其映射成一个新的元素
+
+        admins.stream().map(Admin::getUsername).forEach(x -> System.out.println(x.toUpperCase()));
 
 
     }
