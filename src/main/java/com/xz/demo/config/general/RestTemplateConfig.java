@@ -12,6 +12,10 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class RestTemplateConfig {
 
+
+    /**
+     * 方法名为id
+     * */
     @Bean
     public RestTemplate restTemplate(ClientHttpRequestFactory factory){
         return new RestTemplate(factory);
