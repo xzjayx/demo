@@ -8,6 +8,9 @@ import org.springframework.boot.jackson.JsonComponent;
 
 import java.io.IOException;
 
+/**
+ * @author xiezhi
+ */
 @JsonComponent
 public class JacksonConfig {
 
