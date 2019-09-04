@@ -26,9 +26,6 @@ public class DemoApplicationTests {
         //String[] names = applicationContext.getBeanDefinitionNames();
         RestTemplate restTemplate = (RestTemplate) applicationContext.getBean("restTemplate");
         //运用这个bean 去调用 get请求
-
-
-
     }
 
 }

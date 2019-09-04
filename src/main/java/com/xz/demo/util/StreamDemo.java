@@ -4,10 +4,12 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.xz.demo.model.pojo.Admin;
 import org.apache.ibatis.logging.stdout.StdOutImpl;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  *
@@ -60,6 +62,34 @@ public class StreamDemo {
 
         admins.stream().map(Admin::getUsername).forEach(x -> System.out.println(x.toUpperCase()));
 
+        System.out.println("---------------------------");
+
+       /* List<Integer> list1 = Arrays.asList(1, 2, 3);
+        List<Integer> list2 = Arrays.asList(3, 4, 5);
+
+        List<Integer> listAll = new ArrayList<>();
+        listAll.addAll(list1);
+        listAll.addAll(list2);
+        listAll = new ArrayList<>(new LinkedHashSet<>(listAll));
+        System.out.println(listAll);*/
+
+
+
+
+        //创建一个 装有两个泛型为integer的集合
+        Stream<List<Admin>> stream = Stream.of(Arrays.asList(new Admin("张三", 18),
+                new Admin("李四", 19),
+                new Admin("王五", 20)), Arrays.asList(new Admin("赵六", 223),
+                new Admin("周七", 24),
+                new Admin("张三", 19)));
+        // 将两个合为一个
+        Stream<Admin> integerStream = stream.flatMap(
+                (Function<List<Admin>, Stream<Admin>>) Collection::stream);
+        // 为新的集合
+        List<Admin> collect = integerStream.distinct().collect(toList());
+        System.out.println("新stream大小:"+collect.size());
+        System.out.println("-----合并后-----");
+        collect.forEach(System.out::println);
 
     }
 }
