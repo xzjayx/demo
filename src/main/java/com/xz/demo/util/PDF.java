@@ -15,7 +15,7 @@ public class PDF {
 
 
     public static void main(String[] args) {
-        pdf2Image("D:/teams.pdf", "D:/png", 300);
+        pdf2Image("D:/teams.pdf", "D:/png");
     }
 
 
@@ -29,11 +29,10 @@ public class PDF {
      *
      * @param PdfFilePath pdf完整路径
      * @param dstImgFolder 图片存放的文件夹
-     * @param dpi dpi越大转换后越清晰，相对转换速度越慢
      * @return
      */
 
-    public static void pdf2Image(String PdfFilePath, String dstImgFolder, int dpi) {
+    private static void pdf2Image(String PdfFilePath, String dstImgFolder) {
         File file = new File(PdfFilePath);
         PDDocument pdDocument;
         try {
@@ -61,7 +60,7 @@ public class PDF {
                     imgFilePath.append((i + 1));
                     imgFilePath.append(".png");
                     File dstFile = new File(imgFilePath.toString());
-                    BufferedImage image = renderer.renderImageWithDPI(i, dpi);
+                    BufferedImage image = renderer.renderImage(i, 0.75f);
                     ImageIO.write(image, "png", dstFile);
                 }
                 System.out.println("PDF文档转PNG图片成功！");

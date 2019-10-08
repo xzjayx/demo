@@ -7,6 +7,7 @@ import com.xz.demo.service.TaskService;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DynamicTask {
+
+
+    @Bean
+    public TaskScheduler taskScheduler() {
+        ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
+        taskScheduler.setPoolSize(50);
+        return taskScheduler;
+    }
+
+
     private ScheduledFuture<?> future;
 
     /**

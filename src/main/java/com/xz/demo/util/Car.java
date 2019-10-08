@@ -4,7 +4,7 @@ package com.xz.demo.util;
 /**
  * 测试== 和equals 的相关实践
  * */
-public class Car {
+public  class Car {
 
     private int batch;
 
@@ -29,10 +29,26 @@ public class Car {
     }
 
     public static void main(String[] args) {
-        Car c1 = new Car(1);
+
+        int a = 015;
+        double c = 015;
+        double b1 = 15>>1;
+        System.out.println(b1);
+
+        double d = 1.0/10;
+        double e = 0.1;
+        float f = 0.1f;
+        System.out.println(d == e);
+        System.out.println(d == f);
+
+
+
+
+
+      /*  Car c1 = new Car(1);
         Car c2 = new Car(1);
         System.out.println(c1.equals(c2));
-        System.out.println(c1 == c2);
+        System.out.println(c1 == c2);*/
     }
 
 }
