@@ -31,7 +31,6 @@ public class RestUtil {
         String data = restTemplate.getForObject(url, String.class,"36666" );
         System.out.println(data);
 
-       //如果需要访问post请求 则可以参考blog  https://blog.csdn.net/qq_27130997/article/details/81625845 ，https://blog.csdn.net/zai_xia/article/details/80926157
-
+        //如果需要访问post请求 则可以参考blog  https://blog.csdn.net/qq_27130997/article/details/81625845 ，https://blog.csdn.net/zai_xia/article/details/80926157
     }
 }

@@ -40,12 +40,13 @@ public class Hashdemo {
         int num,num1;
         num =5;
         num1 = 5;
-       // num+= 3.14; ==>  num + 3.14
+
 
         double n = num + 3.14;
 
         System.out.println(n);        // 8.14
 
+        // += -= *= /= %=   复合赋值运算符 隐藏了一个强制类型转换 一、例如 num+= 3.14  ==> （num的类型）（ num + 3.14）
         num1+= 3.14;
 
         System.out.println(num1);     //8
@@ -80,7 +81,9 @@ public class Hashdemo {
         char c = 'a'+1;
         System.out.println(c);
 
-
+        int a = 10;
+        int b = 20;
+        System.out.println(a>b?3.014:1L);
     }
 
 

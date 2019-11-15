@@ -7,8 +7,8 @@ public class CreateThread {
 
         @Override
         public void run(){
-            Thread thread = new Thread(()-> System.out.println(Thread.currentThread().getThreadGroup().getName()));
-            thread.start();
+            System.out.println(Thread.currentThread().getName());
+            new Thread(()-> System.out.println(Thread.currentThread().getName())).start();
         }
     }
 

@@ -83,13 +83,13 @@ public class StreamDemo {
                 new Admin("周七", 24),
                 new Admin("张三", 19)));
         // 将两个合为一个
-        Stream<Admin> integerStream = stream.flatMap(
-                (Function<List<Admin>, Stream<Admin>>) Collection::stream);
-        // 为新的集合
+       /* Stream<Admin> integerStream = stream.flatMap(
+                (Function<List<Admin>, Stream<Admin>>) Collection::stream);*/
+        /*// 为新的集合
         List<Admin> collect = integerStream.distinct().collect(toList());
         System.out.println("新stream大小:"+collect.size());
         System.out.println("-----合并后-----");
-        collect.forEach(System.out::println);
+        collect.forEach(System.out::println);*/
 
     }
 }
